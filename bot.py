@@ -432,9 +432,15 @@ detail_html = """
   .section-title { font-size: 1.5rem; font-weight: 700; margin: 30px 0 20px 0; padding-bottom: 5px; border-bottom: 2px solid var(--netflix-red); display: inline-block; }
   .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; background: #000; border-radius: 8px; }
   .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-  .download-section, .episode-section { margin-top: 10px; }
-  .download-button, .episode-button { display: inline-block; padding: 12px 25px; background-color: #444; color: white; text-decoration: none; border-radius: 4px; font-weight: 700; transition: background-color 0.3s ease; margin-right: 10px; margin-bottom: 10px; text-align: center; vertical-align: middle; }
-  .copy-button { background-color: #555; color: white; border: none; padding: 8px 15px; font-size: 0.9rem; cursor: pointer; border-radius: 4px; margin-left: -5px; margin-bottom: 10px; vertical-align: middle; }
+  
+  /* [MODIFIED] Button and Link Styles */
+  .links-wrapper { margin-top: 10px; }
+  .links-container { display: flex; gap: 40px; align-items: flex-start; }
+  .link-section { flex: 1; min-width: 250px; }
+  .download-button, .episode-button { display: block; width: 100%; padding: 12px 20px; color: white; text-decoration: none; border-radius: 4px; font-weight: 700; transition: background-color 0.3s ease; margin-bottom: 10px; text-align: center; }
+  .download-button { background-color: var(--netflix-red); } /* Red color for download buttons */
+  .download-button:hover { background-color: #f61f29; } /* Darker red on hover */
+  
   .episode-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding: 15px; border-radius: 5px; background-color: #1a1a1a; border-left: 4px solid var(--netflix-red); }
   .episode-title { font-size: 1.1rem; font-weight: 500; color: #fff; }
   .ad-container { margin: 30px 0; text-align: center; }
@@ -445,33 +451,26 @@ detail_html = """
   .movie-poster-container { position: relative; overflow: hidden; width:100%; flex-grow:1; aspect-ratio: 2 / 3; }
   .movie-poster { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease; }
   .poster-badge { position: absolute; top: 10px; left: 10px; background-color: var(--netflix-red); color: white; padding: 4px 8px; border-radius: 3px; font-size: 0.75rem; font-weight: 700; z-index: 4; }
-  /* [MODIFIED] Rating Badge CSS */
-  .rating-badge {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    background-color: transparent;
-    color: white;
-    padding: 5px;
-    font-size: 0.8rem;
-    font-weight: 700;
-    z-index: 3;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
-  }
+  .rating-badge { position: absolute; bottom: 10px; right: 10px; background-color: transparent; color: white; padding: 5px; font-size: 0.8rem; font-weight: 700; z-index: 3; display: flex; align-items: center; gap: 5px; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); }
   .rating-badge .fa-star { color: #f5c518; }
   .card-info-static { padding: 10px 8px; background-color: #1a1a1a; text-align: left; width: 100%; flex-shrink: 0; }
   .card-info-title { font-size: 0.9rem; font-weight: 500; color: var(--text-light); margin: 0 0 4px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .card-info-meta { font-size: 0.75rem; color: var(--text-dark); margin: 0; }
   @media (hover: hover) { .movie-card:hover { transform: scale(1.05); z-index: 10; box-shadow: 0 0 20px rgba(229, 9, 20, 0.5); } .movie-card:hover .movie-poster { transform: scale(1.1); } }
-  @media (max-width: 992px) { .detail-content-wrapper { flex-direction: column; align-items: center; text-align: center; } .detail-info { max-width: 100%; } .detail-title { font-size: 3.5rem; } }
-  @media (max-width: 768px) { .detail-header { padding: 20px; } .detail-hero { padding: 80px 20px 40px; } .detail-poster { width: 60%; max-width: 220px; height: auto; } .detail-title { font-size: 2.2rem; }
-  .action-btn, .download-button { display: block; width: 100%; max-width: 320px; margin: 0 auto 10px auto; }
-  .episode-item { flex-direction: column; align-items: flex-start; gap: 10px; } .episode-button { width: 100%; }
-  .section-title { margin-left: 15px !important; } .related-section-container { padding: 20px 0; }
-  .related-grid { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 15px 10px; padding: 0 15px; } }
+  
+  @media (max-width: 992px) { 
+    .detail-content-wrapper { flex-direction: column; align-items: center; text-align: center; } 
+    .detail-info { max-width: 100%; } .detail-title { font-size: 3.5rem; } 
+  }
+  @media (max-width: 768px) { 
+    .detail-header { padding: 20px; } .detail-hero { padding: 80px 20px 40px; } .detail-poster { width: 60%; max-width: 220px; height: auto; } .detail-title { font-size: 2.2rem; }
+    .action-btn, .download-button { display: block; width: 100%; max-width: 320px; margin: 0 auto 10px auto; }
+    .episode-item { flex-direction: column; align-items: flex-start; gap: 10px; } .episode-button { width: 100%; }
+    .section-title { margin-left: 15px !important; } .related-section-container { padding: 20px 0; }
+    .related-grid { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 15px 10px; padding: 0 15px; }
+    /* [NEW] Responsive fix for links container */
+    .links-container { flex-direction: column; gap: 20px; }
+  }
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 </head>
@@ -509,7 +508,6 @@ detail_html = """
       
       {% if ad_settings.banner_ad_code %}<div class="ad-container">{{ ad_settings.banner_ad_code|safe }}</div>{% endif %}
       
-      <!-- [MODIFIED] Trailer Section -->
       {% if trailer_embed_key %}
       <div class="trailer-section">
           <h3 class="section-title">Watch Trailer</h3>
@@ -519,35 +517,48 @@ detail_html = """
       </div>
       {% endif %}
 
-      <div style="margin: 20px 0;"><a href="{{ url_for('contact', report_id=movie._id, title=movie.title) }}" class="download-button" style="background-color:#5a5a5a; text-align:center;"><i class="fas fa-flag"></i> Report a Problem</a></div>
+      <div style="margin: 20px 0;"><a href="{{ url_for('contact', report_id=movie._id, title=movie.title) }}" class="action-btn" style="background-color:#5a5a5a; text-align:center; width: 100%;"><i class="fas fa-flag"></i> Report a Problem</a></div>
+      
       {% if movie.is_coming_soon %}<h3 class="section-title">Coming Soon</h3>
       {% elif movie.type == 'movie' %}
-        <div class="download-section">
-          
-          <!-- [NEW] Streaming Links Section -->
-          {% if movie.streaming_links %}
-            <h3 class="section-title">Streaming Links</h3>
-            {% for link_item in movie.streaming_links %}
-                <a class="download-button" href="{{ link_item.url }}" target="_blank" rel="noopener" style="background-color: #007bff;">
-                    <i class="fas fa-play-circle"></i> Watch on {{ link_item.name }}
-                </a>
-            {% endfor %}
-          {% endif %}
-          
-          <!-- [MODIFIED] Download Links Section -->
-          {% if movie.links %}
-            <h3 class="section-title">Download Links</h3>
-            {% for link_item in movie.links %}
-              <div>
-                <a class="download-button" href="{{ link_item.url }}" target="_blank" rel="noopener">
-                    <i class="fas fa-download"></i> Download in {{ link_item.quality }}
-                </a>
-                <button class="copy-button" onclick="copyToClipboard('{{ link_item.url }}')"><i class="fas fa-copy"></i></button>
-              </div>
-            {% endfor %}
-          {% endif %}
+        <!-- [MODIFIED] Link Sections Wrapper -->
+        <div class="links-wrapper">
+            <div class="links-container">
+                <!-- Streaming Links Column -->
+                {% if movie.streaming_links %}
+                <div class="link-section">
+                    <h3 class="section-title" style="margin-top:0;">Streaming Links</h3>
+                    {% for link_item in movie.streaming_links %}
+                        <a class="download-button" href="{{ link_item.url }}" target="_blank" rel="noopener" style="background-color: #007bff;">
+                            <i class="fas fa-play-circle"></i>streaming and Watch online on {{ link_item.name }}
+                        </a>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                
+                <!-- Download Links Column -->
+                {% if movie.links %}
+                <div class="link-section">
+                    <h3 class="section-title" style="margin-top:0;">Download Links</h3>
+                    {% for link_item in movie.links %}
+                        <a class="download-button" href="{{ link_item.url }}" target="_blank" rel="noopener">
+                            <i class="fas fa-download"></i> Download This File in {{ link_item.quality }}
+                        </a>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
 
-          {% if movie.files %}<h3 class="section-title">Get from Telegram</h3>{% for file in movie.files | sort(attribute='quality') %}<a href="https://t.me/{{ bot_username }}?start={{ movie._id }}_{{ file.quality }}" class="action-btn" style="background-color: #2AABEE; display: block; text-align:center; margin-top:10px; margin-bottom: 0;"><i class="fa-brands fa-telegram"></i> Get {{ file.quality }}</a>{% endfor %}{% endif %}
+            {% if movie.files %}
+            <div class="link-section" style="margin-top: 30px;">
+                <h3 class="section-title">Get from Telegram</h3>
+                {% for file in movie.files | sort(attribute='quality') %}
+                    <a href="https://t.me/{{ bot_username }}?start={{ movie._id }}_{{ file.quality }}" class="action-btn" style="background-color: #2AABEE; display: block; text-align:center; margin-top:10px; margin-bottom: 0;">
+                        <i class="fa-brands fa-telegram"></i> Get {{ file.quality }}
+                    </a>
+                {% endfor %}
+            </div>
+            {% endif %}
         </div>
       {% elif movie.type == 'series' %}
         <div class="episode-section">
@@ -556,7 +567,7 @@ detail_html = """
             {% for pack in movie.season_packs | sort(attribute='quality') | sort(attribute='season') %}
               <div class="episode-item" style="background-color: #3e1a1a;">
                 <span class="episode-title">Complete Season {{ pack.season }} Pack ({{ pack.quality }})</span>
-                <a href="https.me/{{ bot_username }}?start={{ movie._id }}_S{{ pack.season }}_{{ pack.quality }}" class="episode-button" style="background-color: var(--netflix-red);"><i class="fas fa-box-open"></i> Get Season Pack</a>
+                <a href="https://t.me/{{ bot_username }}?start={{ movie._id }}_S{{ pack.season }}_{{ pack.quality }}" class="episode-button" style="background-color: var(--netflix-red);"><i class="fas fa-box-open"></i> Get Season Pack</a>
               </div>
             {% endfor %}
           {% endif %}
@@ -564,7 +575,7 @@ detail_html = """
             {% for ep in movie.episodes | sort(attribute='episode_number') | sort(attribute='season') %}
               <div class="episode-item">
                 <span class="episode-title">Season {{ ep.season }} - Episode {{ ep.episode_number }}</span>
-                <a href="https.me/{{ bot_username }}?start={{ movie._id }}_{{ ep.season }}_{{ ep.episode_number }}" class="episode-button" style="background-color: #2AABEE;"><i class="fa-brands fa-telegram"></i> Get Episode</a>
+                <a href="https://t.me/{{ bot_username }}?start={{ movie._id }}_{{ ep.season }}_{{ ep.episode_number }}" class="episode-button" style="background-color: #2AABEE;"><i class="fa-brands fa-telegram"></i> Get Episode</a>
               </div>
             {% endfor %}
           {% endif %}
@@ -578,14 +589,13 @@ detail_html = """
 </div>
 {% if related_movies %}<div class="related-section-container"><h3 class="section-title" style="margin-left: 50px; color: white;">You Might Also Like</h3><div class="related-grid">{% for m in related_movies %}{{ render_movie_card(m) }}{% endfor %}</div></div>{% endif %}
 {% else %}<div style="display:flex; justify-content:center; align-items:center; height:100vh;"><h2>Content not found.</h2></div>{% endif %}
-<script>
-function copyToClipboard(text) { navigator.clipboard.writeText(text).then(() => alert('Link copied!'), () => alert('Copy failed!')); }
-</script>
+
 {% if ad_settings.popunder_code %}{{ ad_settings.popunder_code|safe }}{% endif %}
 {% if ad_settings.social_bar_code %}{{ ad_settings.social_bar_code|safe }}{% endif %}
 </body>
 </html>
 """
+            
 genres_html = """
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" /><title>{{ title }} - MovieZone</title>
