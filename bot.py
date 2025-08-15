@@ -737,9 +737,9 @@ admin_html = """
                 
                 <!-- [NEW] Streaming Links -->
                 <p><b>Streaming Links (Optional)</b></p>
-                <div class="form-group"><label>Streaming Link 1 (S 480p):</label><input type="url" name="streaming_link_1" /></div>
-                <div class="form-group"><label>Streaming Link 2 (S 720p):</label><input type="url" name="streaming_link_2" /></div>
-                <div class="form-group"><label>Streaming Link 3 (S 1080p):</label><input type="url" name="streaming_link_3" /></div><hr>
+                <div class="form-group"><label>Streaming Link 1 (Server 1):</label><input type="url" name="streaming_link_1" /></div>
+                <div class="form-group"><label>Streaming Link 2 (Server 2):</label><input type="url" name="streaming_link_2" /></div>
+                <div class="form-group"><label>Streaming Link 3 (Server 3):</label><input type="url" name="streaming_link_3" /></div><hr>
 
                 <p><b>Direct Download Links</b></p>
                 <div class="form-group"><label>480p Link:</label><input type="url" name="link_480p" /></div>
@@ -933,13 +933,13 @@ edit_html = """
             <div class="form-group"><label>Watch Link (Main Embed):</label><input type="url" name="watch_link" value="{{ movie.watch_link or '' }}" /></div><hr>
             
             <!-- [NEW] Streaming Links -->
-            {% set stream_link_1 = (movie.streaming_links | selectattr('name', 'equalto', '480p') | map(attribute='url') | first) or '' %}
-            {% set stream_link_2 = (movie.streaming_links | selectattr('name', 'equalto', '720p') | map(attribute='url') | first) or '' %}
-            {% set stream_link_3 = (movie.streaming_links | selectattr('name', 'equalto', '1080p') | map(attribute='url') | first) or '' %}
+            {% set stream_link_1 = (movie.streaming_links | selectattr('name', 'equalto', 'Server 1') | map(attribute='url') | first) or '' %}
+            {% set stream_link_2 = (movie.streaming_links | selectattr('name', 'equalto', 'Server 2') | map(attribute='url') | first) or '' %}
+            {% set stream_link_3 = (movie.streaming_links | selectattr('name', 'equalto', 'Server 3') | map(attribute='url') | first) or '' %}
             <p><b>Streaming Links (Optional)</b></p>
-            <div class="form-group"><label>Streaming Link 1 (S. 480p):</label><input type="url" name="streaming_link_1" value="{{ stream_link_1 }}" /></div>
-            <div class="form-group"><label>Streaming Link 2 (S 720p):</label><input type="url" name="streaming_link_2" value="{{ stream_link_2 }}" /></div>
-            <div class="form-group"><label>Streaming Link 3 (S 1080p):</label><input type="url" name="streaming_link_3" value="{{ stream_link_3 }}" /></div><hr>
+            <div class="form-group"><label>Streaming Link 1 (Server 1):</label><input type="url" name="streaming_link_1" value="{{ stream_link_1 }}" /></div>
+            <div class="form-group"><label>Streaming Link 2 (Server 2):</label><input type="url" name="streaming_link_2" value="{{ stream_link_2 }}" /></div>
+            <div class="form-group"><label>Streaming Link 3 (Server 3):</label><input type="url" name="streaming_link_3" value="{{ stream_link_3 }}" /></div><hr>
             
             <p><b>Download Links (Manual)</b></p>
             <div class="form-group"><label>480p Link:</label><input type="url" name="link_480p" value="{% for l in movie.links %}{% if l.quality == '480p' %}{{ l.url }}{% endif %}{% endfor %}" /></div>
@@ -1284,9 +1284,9 @@ def admin():
 
             # [NEW] Handle Streaming Links
             streaming_links = [
-                ("480p", request.form.get("streaming_link_1", "").strip()),
-                ("720p", request.form.get("streaming_link_2", "").strip()),
-                ("1080p", request.form.get("streaming_link_3", "").strip()),
+                ("Server 1", request.form.get("streaming_link_1", "").strip()),
+                ("Server 2", request.form.get("streaming_link_2", "").strip()),
+                ("Server 3", request.form.get("streaming_link_3", "").strip()),
             ]
             movie_data['streaming_links'] = [{"name": name, "url": url} for name, url in streaming_links if url]
 
@@ -1405,9 +1405,9 @@ def edit_movie(movie_id):
             
             # [NEW] Handle Streaming Links
             streaming_links_data = [
-                ("480p.", request.form.get("streaming_link_1", "").strip()),
-                ("720p.", request.form.get("streaming_link_2", "").strip()),
-                ("1080p.", request.form.get("streaming_link_3", "").strip()),
+                ("Server 1", request.form.get("streaming_link_1", "").strip()),
+                ("Server 2", request.form.get("streaming_link_2", "").strip()),
+                ('Server 3", request.form.get("streaming_link_3", "").strip()),
             ]
             update_data["streaming_links"] = [{"name": name, "url": url} for name, url in streaming_links_data if url]
 
