@@ -201,7 +201,7 @@ index_html = """
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-<title>MovieZone - Your Entertainment Hub</title>
+<title>PmwBD - Your Entertainment Hub</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;500;700&display=swap');
   :root { --netflix-red: #E50914; --netflix-black: #141414; --text-light: #f5f5f5; --text-dark: #a0a0a0; --nav-height: 60px; }
@@ -291,7 +291,7 @@ index_html = """
 <body>
 <!-- [MODIFIED] Main navigation with new links -->
 <header class="main-nav">
-    <a href="{{ url_for('home') }}" class="logo">MovieZone</a>
+    <a href="{{ url_for('home') }}" class="logo">PmwBD</a>
     <div class="nav-links">
         <a href="{{ url_for('movies_by_category', cat_name='Latest Movie') }}">Movies</a>
         <a href="{{ url_for('movies_by_category', cat_name='Latest Series') }}">Web Series</a>
@@ -407,7 +407,7 @@ detail_html = """
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-<title>{{ movie.title if movie else "Content Not Found" }} - MovieZone</title>
+<title>{{ movie.title if movie else "Content Not Found" }} - PmwBD</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;500;700&display=swap');
   :root { --netflix-red: #E50914; --netflix-black: #141414; --text-light: #f5f5f5; --text-dark: #a0a0a0; }
@@ -530,7 +530,7 @@ detail_html = """
                     <h3 class="section-title" style="margin-top:0;">Streaming Links</h3>
                     {% for link_item in movie.streaming_links %}
                         <a class="download-button" href="{{ link_item.url }}" target="_blank" rel="noopener" style="background-color: #007bff;">
-                            <i class="fas fa-play-circle"></i>streaming and Watch online on {{ link_item.name }}
+                            <i class="fas fa-play-circle"></i> Stream and Watch online in {{ link_item.name }}
                         </a>
                     {% endfor %}
                 </div>
@@ -542,7 +542,7 @@ detail_html = """
                     <h3 class="section-title" style="margin-top:0;">Download Links</h3>
                     {% for link_item in movie.links %}
                         <a class="download-button" href="{{ link_item.url }}" target="_blank" rel="noopener">
-                            <i class="fas fa-download"></i> Download This File in {{ link_item.quality }}
+                            <i class="fas fa-download"></i> Download the file in {{ link_item.quality }}
                         </a>
                     {% endfor %}
                 </div>
@@ -933,9 +933,9 @@ edit_html = """
             <div class="form-group"><label>Watch Link (Main Embed):</label><input type="url" name="watch_link" value="{{ movie.watch_link or '' }}" /></div><hr>
             
             <!-- [NEW] Streaming Links -->
-            {% set stream_link_1 = (movie.streaming_links | selectattr('name', 'equalto', 'Server 1') | map(attribute='url') | first) or '' %}
-            {% set stream_link_2 = (movie.streaming_links | selectattr('name', 'equalto', 'Server 2') | map(attribute='url') | first) or '' %}
-            {% set stream_link_3 = (movie.streaming_links | selectattr('name', 'equalto', 'Server 3') | map(attribute='url') | first) or '' %}
+            {% set stream_link_1 = (movie.streaming_links | selectattr('name', 'equalto', '480p') | map(attribute='url') | first) or '' %}
+            {% set stream_link_2 = (movie.streaming_links | selectattr('name', 'equalto', '720p') | map(attribute='url') | first) or '' %}
+            {% set stream_link_3 = (movie.streaming_links | selectattr('name', 'equalto', '1080p') | map(attribute='url') | first) or '' %}
             <p><b>Streaming Links (Optional)</b></p>
             <div class="form-group"><label>Streaming Link 1 (Server 1):</label><input type="url" name="streaming_link_1" value="{{ stream_link_1 }}" /></div>
             <div class="form-group"><label>Streaming Link 2 (Server 2):</label><input type="url" name="streaming_link_2" value="{{ stream_link_2 }}" /></div>
