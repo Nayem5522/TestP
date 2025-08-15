@@ -831,7 +831,7 @@ admin_html = """
         const container = document.getElementById('download_options_container');
         const groupEl = document.createElement('div');
         groupEl.className = 'dynamic-item quality-group-item';
-        groupEl.innerHTML = \`
+        groupEl.innerHTML = r"""
             <button type="button" class="btn btn-danger remove-btn" onclick="this.parentElement.remove()">Remove Group</button>
             <div class="form-group">
                 <label>Quality Tag (e.g., 720p [850 MB])</label>
@@ -839,7 +839,7 @@ admin_html = """
             </div>
             <div class="buttons-container"></div>
             <button type="button" class="btn btn-secondary btn-sm" onclick="addButton(this.previousElementSibling)"><i class="fas fa-plus"></i> Add Button</button>
-        \`;
+        """;
         container.appendChild(groupEl);
         
         const buttonsContainer = groupEl.querySelector('.buttons-container');
@@ -1029,9 +1029,9 @@ edit_html = """
 <!-- [MODIFIED] Admin Panel Scripts with new dynamic form logic -->
 <script>
     function toggleFields() { var isSeries = document.getElementById('content_type').value === 'series'; document.getElementById('episode_fields').style.display = isSeries ? 'block' : 'none'; document.getElementById('movie_fields').style.display = isSeries ? 'none' : 'block'; }
-    function addSeasonPackField() { const c = document.getElementById('season_packs_container'); const d = document.createElement('div'); d.className = 'dynamic-item'; d.innerHTML = \`<button type="button" onclick="this.parentElement.remove()" class="btn btn-danger remove-btn">Remove</button><div class="form-group"><label>Season Number:</label><input type="number" name="pack_season[]" required /></div><div class="form-group"><label>Quality (e.g., 720p):</label><input type="text" name="pack_quality[]" required /></div><div class="form-group"><label>Telegram Message ID:</label><input type="number" name="pack_message_id[]" required /></div>\`; c.appendChild(d); }
-    function addEpisodeField() { const c = document.getElementById('episodes_container'); const d = document.createElement('div'); d.className = 'dynamic-item'; d.innerHTML = \`<button type="button" onclick="this.parentElement.remove()" class="btn btn-danger remove-btn">Remove</button><div class="form-group"><label>Season Number:</label><input type="number" name="episode_season[]" value="1" required /></div><div class="form-group"><label>Episode Number:</label><input type="number" name="episode_number[]" required /></div><div class="form-group"><label>Episode Title:</label><input type="text" name="episode_title[]" /></div><hr><p><b>Provide ONE of the following:</b></p><div class="form-group"><label>Telegram Message ID:</label><input type="number" name="episode_message_id[]" /></div><p><b>OR</b> Watch Link:</p><div class="form-group"><label>Watch Link (Embed):</label><input type="url" name="episode_watch_link[]" /></div>\`; c.appendChild(d); }
-
+    function addSeasonPackField() { const c = document.getElementById('season_packs_container'); const d = document.createElement('div'); d.className = 'dynamic-item'; d.innerHTML = r""" <button type="button" onclick="this.parentElement.remove()" class="btn btn-danger remove-btn">Remove</button><div class="form-group"><label>Season Number:</label><input type="number" name="pack_season[]" required /></div><div class="form-group"><label>Quality (e.g., 720p):</label><input type="text" name="pack_quality[]" required /></div><div class="form-group"><label>Telegram Message ID:</label><input type="number" name="pack_message_id[]" required /></div>"""; c.appendChild(d); }
+    function addEpisodeField() { const c = document.getElementById('episodes_container'); const d = document.createElement('div'); d.className = 'dynamic-item'; d.innerHTML = r""" <button type="button" onclick="this.parentElement.remove()" class="btn btn-danger remove-btn">Remove</button><div class="form-group"><label>Season Number:</label><input type="number" name="episode_season[]" value="1" required /></div><div class="form-group"><label>Episode Number:</label><input type="number" name="episode_number[]" required /></div><div class="form-group"><label>Episode Title:</label><input type="text" name="episode_title[]" /></div><hr><p><b>Provide ONE of the following:</b></p><div class="form-group"><label>Telegram Message ID:</label><input type="number" name="episode_message_id[]" /></div><p><b>OR</b> Watch Link:</p><div class="form-group"><label>Watch Link (Embed):</label><input type="url" name="episode_watch_link[]" /></div>"""; c.appendChild(d); }
+  
     // [NEW] Functions for dynamic download options
     function addQualityGroup(group = {}) {
         const container = document.getElementById('download_options_container');
