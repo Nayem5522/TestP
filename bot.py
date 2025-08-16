@@ -210,38 +210,11 @@ index_html = """
   a { text-decoration: none; color: inherit; }
   ::-webkit-scrollbar { width: 8px; } ::-webkit-scrollbar-track { background: #222; } ::-webkit-scrollbar-thumb { background: #555; } ::-webkit-scrollbar-thumb:hover { background: var(--netflix-red); }
 
-/* [MODIFIED] Header is now fixed with a solid background from the start */
-.main-nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding: 10px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 1000;
-    background-color: var(--netflix-black); /* Solid background color */
-    border-bottom: 1px solid #222; /* Optional: adds a subtle line to separate header */
-}
-
+.main-nav { position: fixed; top: 0; left: 0; width: 100%; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; transition: background-color 0.3s ease; background: linear-gradient(to bottom, rgba(0,0,0,0.8) 10%, rgba(0,0,0,0)); }
+.main-nav.scrolled { background-color: var(--netflix-black); }
 .nav-left, .nav-right { display: flex; align-items: center; flex: 1; }
 .nav-right { justify-content: flex-end; }
-
-/* [MODIFIED] Logo style updated for icon and text alignment */
-.logo {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 36px; /* Adjusted size */
-    color: var(--netflix-red);
-    font-weight: 700;
-    letter-spacing: 1px;
-    margin: 0 auto;
-    display: flex; /* Aligns icon and text */
-    align-items: center;
-    gap: 10px; /* Space between icon and text */
-}
-.logo i { font-size: 32px; } /* Icon size */
-
+.logo { font-family: 'Bebas Neue', sans-serif; font-size: 40px; color: var(--netflix-red); font-weight: 700; letter-spacing: 1px; margin: 0 auto; line-height: 0; }
 .menu-toggle { font-size: 24px; cursor: pointer; color: var(--text-light); z-index: 1002;}
 
 .drawer-menu { position: fixed; top: 0; left: -280px; width: 280px; height: 100%; background-color: #181818; z-index: 1001; transition: left 0.3s ease; padding-top: 80px; }
@@ -251,21 +224,20 @@ index_html = """
 .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; opacity: 0; visibility: hidden; transition: opacity 0.3s ease; }
 .overlay.open { opacity: 1; visibility: visible; }
 
+.nav-links { display: flex; gap: 20px; align-items: center; }
+.nav-links a { font-weight: 500; font-size: 0.9rem; transition: color 0.2s ease; }
+.nav-links a:hover { color: var(--netflix-red); }
+.search-container { }
 .search-input { background-color: rgba(0,0,0,0.7); border: 1px solid #777; color: var(--text-light); padding: 8px 15px; border-radius: 4px; transition: width 0.3s ease, background-color 0.3s ease; width: 200px; }
 .search-input:focus { background-color: rgba(0,0,0,0.9); border-color: var(--text-light); outline: none; }
 
-/* [MODIFIED] Main content starts after the fixed header height */
-.content-wrapper {
-    padding-top: var(--nav-height);
-}
-
-.hero-section { height: 55vh; position: relative; color: white; overflow: hidden; }
+.hero-section { height: 55vh; position: relative; color: white; overflow: hidden; margin-top: var(--nav-height); }
 .hero-slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center top; display: flex; align-items: flex-end; padding: 50px; opacity: 0; transition: opacity 1.5s ease-in-out; z-index: 1; }
 .hero-slide.active { opacity: 1; z-index: 2; }
-.hero-slide::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to top, var(--netflix-black) 10%, transparent 50%), linear-gradient(to right, rgba(0,0,0,0.8) 0%, transparent 60%); }
-.hero-content { position: relative; z-index: 3; max-width: 50%; }
-.hero-title { font-family: 'Bebas Neue', sans-serif; font-size: 5rem; font-weight: 700; margin-bottom: 1rem; line-height: 1; }
-.hero-overview { font-size: 1.1rem; line-height: 1.5; margin-bottom: 1.5rem; max-width: 600px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.hero-slide::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to top, var(--netflix-black) 10%, transparent 60%); }
+.hero-content { position: relative; z-index: 3; max-width: 60%; text-align: left; }
+.hero-title { font-family: 'Bebas Neue', sans-serif; font-size: 2.8rem; font-weight: 700; margin-bottom: 1rem; line-height: 1.1; text-shadow: 2px 2px 5px rgba(0,0,0,0.7); }
+.hero-overview { font-size: 1rem; line-height: 1.5; margin-bottom: 1.5rem; max-width: 600px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .hero-buttons .btn { padding: 8px 20px; margin-right: 0.8rem; border: none; border-radius: 4px; font-size: 0.9rem; font-weight: 700; cursor: pointer; transition: opacity 0.3s ease; display: inline-flex; align-items: center; gap: 8px; }
 .btn.btn-primary { background-color: var(--netflix-red); color: white; } .btn.btn-secondary { background-color: rgba(109, 109, 110, 0.7); color: white; } .btn:hover { opacity: 0.8; }
 main { padding: 0 50px; }
@@ -306,13 +278,14 @@ main { padding: 0 50px; }
 
 @media (max-width: 992px) { .nav-links { display: none; } }
 @media (max-width: 768px) {
-body { padding-bottom: var(--nav-height); } .main-nav { padding: 10px 15px; } main { padding: 0 15px; }
-.logo { font-size: 24px; gap: 8px; } /* [MODIFIED] Logo size for mobile */
-.logo i { font-size: 22px; }
+body { padding-bottom: var(--nav-height); } .main-nav { padding: 10px 15px; } main { padding: 0 15px; } .logo img { height: 28px !important; }
 .search-container { flex: 2; text-align: right; }
 .search-input { width: 120px; }
 .hero-section { height: 45vh; margin: 0 -15px;}
-.hero-slide { padding: 15px; align-items: center; } .hero-content { max-width: 90%; text-align: center; } .hero-title { font-size: 2.8rem; } .hero-overview { display: none; }
+.hero-slide { padding: 25px; }
+.hero-content { max-width: 90%; text-align: left; }
+.hero-title { font-size: 2.2rem; }
+.hero-overview { display: none; }
 .category-section { margin: 25px 0; } .category-title { font-size: 1.2rem; }
 .category-grid, .full-page-grid { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 15px 10px; }
 .full-page-grid-container { padding-top: 80px; } .full-page-grid-title { font-size: 1.8rem; }
@@ -322,7 +295,6 @@ body { padding-bottom: var(--nav-height); } .main-nav { padding: 10px 15px; } ma
 .main-footer { padding: 20px 15px; }
 }
 </style>
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 </head>
 <body>
@@ -330,10 +302,9 @@ body { padding-bottom: var(--nav-height); } .main-nav { padding: 10px 15px; } ma
     <div class="nav-left">
         <div class="menu-toggle"><i class="fas fa-bars"></i></div>
     </div>
-    <!-- [MODIFIED] Logo with icon added -->
+    <!-- The logo link is updated below -->
     <a href="{{ url_for('home') }}" class="logo">
-        <i class="fas fa-play-circle"></i>
-        <span>PmwBD</span>
+        <img src="https://i.postimg.cc/bwMx2P6J/IMG-20250817-043812-084-removebg-preview.png" alt="PmwBD Logo" style="height: 35px;">
     </a>
     <div class="nav-right">
         <div class="search-container">
@@ -355,86 +326,83 @@ body { padding-bottom: var(--nav-height); } .main-nav { padding: 10px 15px; } ma
     <a href="{{ url_for('dmca') }}">DMCA</a>
 </nav>
 
-<!-- [MODIFIED] Wrapper to push content below the fixed header -->
-<div class="content-wrapper">
-    <main>
-      {% macro render_movie_card(m) %}
-        <a href="{{ url_for('movie_detail', movie_id=m._id) }}" class="movie-card">
-          <div class="poster-wrapper">
-            <div class="movie-poster-container">
-               <img class="movie-poster" loading="lazy" src="{{ m.poster or 'https://via.placeholder.com/400x600.png?text=No+Image' }}" alt="{{ m.title }}">
-               {% if m.poster_badge %}<div class="poster-badge">{{ m.poster_badge }}</div>{% endif %}
-               {% if m.vote_average and m.vote_average > 0 %}<div class="rating-badge"><i class="fas fa-star"></i> {{ "%.1f"|format(m.vote_average) }}</div>{% endif %}
-            </div>
-            <div class="card-info-static">
-              <h4 class="card-info-title">{{ m.title }}</h4>
-              {% if m.release_date %}<p class="card-info-meta">{{ m.release_date.split('-')[0] }}</p>{% endif %}
-            </div>
-          </div>
-        </a>
-      {% endmacro %}
-
-
-    {% if is_full_page_list %}
-    <div class="full-page-grid-container">
-    <h2 class="full-page-grid-title">{{ query }}</h2>
-    {% if movies|length == 0 %}
-    <p style="text-align:center; color: var(--text-dark); margin-top: 40px;">No content found.</p>
-    {% else %}
-    <div class="full-page-grid">
-    {% for m in movies %}
-    {{ render_movie_card(m) }}
-    {% endfor %}
-    </div>
-    {% endif %}
-    </div>
-    {% else %}
-    {% if recently_added %}<div class="hero-section">{% for movie in recently_added %}<div class="hero-slide {% if loop.first %}active{% endif %}" style="background-image: url('{{ movie.poster or '' }}');"><div class="hero-content"><h1 class="hero-title">{{ movie.title }}</h1><p class="hero-overview">{{ movie.overview }}</p><div class="hero-buttons">{% if movie.watch_link and not movie.is_coming_soon %}<a href="{{ url_for('watch_movie', movie_id=movie._id) }}" class="btn btn-primary"><i class="fas fa-play"></i> Watch Now</a>{% endif %}<a href="{{ url_for('movie_detail', movie_id=movie._id) }}" class="btn btn-secondary"><i class="fas fa-info-circle"></i> More Info</a></div></div></div>{% endfor %}</div>{% endif %}
-
-    <div class="category-buttons">
-        <a href="{{ url_for('movies_by_category', cat_name='Hindi') }}" class="cat-btn">Hindi</a>
-        <a href="{{ url_for('movies_by_category', cat_name='Bengali') }}" class="cat-btn">Bengali</a>
-        <a href="{{ url_for('movies_by_category', cat_name='Latest Series') }}" class="cat-btn">Web Series</a>
-        <a href="{{ url_for('movies_by_category', cat_name='English') }}" class="cat-btn">English & Hollywood</a>
-    </div>
-
-    {% macro render_grid_section(title, movies_list, endpoint, cat_name) %}
-        {% if movies_list %}
-        <div class="category-section">
-            <div class="category-header">
-                <h2 class="category-title">{{ title }}</h2>
-                <a href="{{ url_for(endpoint, cat_name=cat_name) }}" class="see-all-link">See All ></a>
-            </div>
-            <div class="category-grid">
-                {% for m in movies_list %}
-                    {{ render_movie_card(m) }}
-                {% endfor %}
-            </div>
+<main>
+  {% macro render_movie_card(m) %}
+    <a href="{{ url_for('movie_detail', movie_id=m._id) }}" class="movie-card">
+      <div class="poster-wrapper">
+        <div class="movie-poster-container">
+           <img class="movie-poster" loading="lazy" src="{{ m.poster or 'https://via.placeholder.com/400x600.png?text=No+Image' }}" alt="{{ m.title }}">
+           {% if m.poster_badge %}<div class="poster-badge">{{ m.poster_badge }}</div>{% endif %}
+           {% if m.vote_average and m.vote_average > 0 %}<div class="rating-badge"><i class="fas fa-star"></i> {{ "%.1f"|format(m.vote_average) }}</div>{% endif %}
         </div>
-        {% endif %}
-    {% endmacro %}
+        <div class="card-info-static">
+          <h4 class="card-info-title">{{ m.title }}</h4>
+          {% if m.release_date %}<p class="card-info-meta">{{ m.release_date.split('-')[0] }}</p>{% endif %}
+        </div>
+      </div>
+    </a>
+  {% endmacro %}
 
-    {{ render_grid_section('Trending Now', trending_movies, 'movies_by_category', 'Trending') }}
-    {% if ad_settings.banner_ad_code %}<div class="ad-container">{{ ad_settings.banner_ad_code|safe }}</div>{% endif %}
-    {{ render_grid_section('Latest Movies', latest_movies, 'movies_by_category', 'Latest Movie') }}
-    {{ render_grid_section('Web Series', latest_series, 'movies_by_category', 'Latest Series') }}
-    {% if ad_settings.native_banner_code %}<div class="ad-container">{{ ad_settings.native_banner_code|safe }}</div>{% endif %}
-    {{ render_grid_section('Hindi', hindi_movies, 'movies_by_category', 'Hindi') }}
-    {{ render_grid_section('Bengali', bengali_movies, 'movies_by_category', 'Bengali') }}
-    {{ render_grid_section('English & Hollywood', english_movies, 'movies_by_category', 'English') }}
-    {{ render_grid_section('Coming Soon', coming_soon_movies, 'coming_soon', '') }}
 
-    <div class="telegram-join-section">
-        <i class="fa-brands fa-telegram telegram-icon"></i>
-        <h2>Join Our Telegram Channel</h2>
-        <p>Get the latest movie updates, news, and direct download links right on your phone!</p>
-        <a href="{{ main_channel_link or '#' }}" target="_blank" class="telegram-join-button"><i class="fa-brands fa-telegram"></i> Join Main Channel</a>
-    </div>
-
-    {% endif %}
-
-    </main>
+{% if is_full_page_list %}
+<div class="full-page-grid-container">
+<h2 class="full-page-grid-title">{{ query }}</h2>
+{% if movies|length == 0 %}
+<p style="text-align:center; color: var(--text-dark); margin-top: 40px;">No content found.</p>
+{% else %}
+<div class="full-page-grid">
+{% for m in movies %}
+{{ render_movie_card(m) }}
+{% endfor %}
 </div>
+{% endif %}
+</div>
+{% else %}
+{% if recently_added %}<div class="hero-section">{% for movie in recently_added %}<div class="hero-slide {% if loop.first %}active{% endif %}" style="background-image: url('{{ movie.poster or '' }}');"><div class="hero-content"><h1 class="hero-title">{{ movie.title }}</h1><p class="hero-overview">{{ movie.overview }}</p><div class="hero-buttons">{% if movie.watch_link and not movie.is_coming_soon %}<a href="{{ url_for('watch_movie', movie_id=movie._id) }}" class="btn btn-primary"><i class="fas fa-play"></i> Watch Now</a>{% endif %}<a href="{{ url_for('movie_detail', movie_id=movie._id) }}" class="btn btn-secondary"><i class="fas fa-info-circle"></i> More Info</a></div></div></div>{% endfor %}</div>{% endif %}
+
+<div class="category-buttons">
+    <a href="{{ url_for('movies_by_category', cat_name='Hindi') }}" class="cat-btn">Hindi</a>
+    <a href="{{ url_for('movies_by_category', cat_name='Bengali') }}" class="cat-btn">Bengali</a>
+    <a href="{{ url_for('movies_by_category', cat_name='Latest Series') }}" class="cat-btn">Web Series</a>
+    <a href="{{ url_for('movies_by_category', cat_name='English') }}" class="cat-btn">English & Hollywood</a>
+</div>
+
+{% macro render_grid_section(title, movies_list, endpoint, cat_name) %}
+    {% if movies_list %}
+    <div class="category-section">
+        <div class="category-header">
+            <h2 class="category-title">{{ title }}</h2>
+            <a href="{{ url_for(endpoint, cat_name=cat_name) }}" class="see-all-link">See All ></a>
+        </div>
+        <div class="category-grid">
+            {% for m in movies_list %}
+                {{ render_movie_card(m) }}
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+{% endmacro %}
+
+{{ render_grid_section('Trending Now', trending_movies, 'movies_by_category', 'Trending') }}
+{% if ad_settings.banner_ad_code %}<div class="ad-container">{{ ad_settings.banner_ad_code|safe }}</div>{% endif %}
+{{ render_grid_section('Latest Movies', latest_movies, 'movies_by_category', 'Latest Movie') }}
+{{ render_grid_section('Web Series', latest_series, 'movies_by_category', 'Latest Series') }}
+{% if ad_settings.native_banner_code %}<div class="ad-container">{{ ad_settings.native_banner_code|safe }}</div>{% endif %}
+{{ render_grid_section('Hindi', hindi_movies, 'movies_by_category', 'Hindi') }}
+{{ render_grid_section('Bengali', bengali_movies, 'movies_by_category', 'Bengali') }}
+{{ render_grid_section('English & Hollywood', english_movies, 'movies_by_category', 'English') }}
+{{ render_grid_section('Coming Soon', coming_soon_movies, 'coming_soon', '') }}
+
+<div class="telegram-join-section">
+    <i class="fa-brands fa-telegram telegram-icon"></i>
+    <h2>Join Our Telegram Channel</h2>
+    <p>Get the latest movie updates, news, and direct download links right on your phone!</p>
+    <a href="{{ main_channel_link or '#' }}" target="_blank" class="telegram-join-button"><i class="fa-brands fa-telegram"></i> Join Main Channel</a>
+</div>
+
+{% endif %}
+
+</main>
 <nav class="bottom-nav">
     <a href="{{ url_for('home') }}" class="nav-item {% if request.endpoint == 'home' %}active{% endif %}">
         <i class="fas fa-home"></i><span>Home</span>
@@ -456,33 +424,28 @@ body { padding-bottom: var(--nav-height); } .main-nav { padding: 10px 15px; } ma
     <a href="https://t.me/PrimeCineZone" target="_blank" rel="noopener">&copy; ALL RIGHTS RESERVED PMWBD</a>
 </footer>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Hero slider logic
-        const slides = document.querySelectorAll('.hero-slide');
-        if (slides.length > 1) {
-            let currentSlide = 0;
-            const showSlide = (index) => slides.forEach((s, i) => s.classList.toggle('active', i === index));
-            setInterval(() => {
-                currentSlide = (currentSlide + 1) % slides.length;
-                showSlide(currentSlide);
-            }, 5000);
+    const nav = document.querySelector('.main-nav');
+    window.addEventListener('scroll', () => { window.scrollY > 50 ? nav.classList.add('scrolled') : nav.classList.remove('scrolled'); });
+    document.addEventListener('DOMContentLoaded', function() { 
+        const slides = document.querySelectorAll('.hero-slide'); 
+        if (slides.length > 1) { 
+            let currentSlide = 0; 
+            const showSlide = (index) => slides.forEach((s, i) => s.classList.toggle('active', i === index)); 
+            setInterval(() => { currentSlide = (currentSlide + 1) % slides.length; showSlide(currentSlide); }, 5000); 
         }
 
-        // Drawer menu logic
-        const menuToggle = document.querySelector('.menu-toggle');
-        const drawerMenu = document.querySelector('.drawer-menu');
-        const overlay = document.querySelector('.overlay');
-
-        menuToggle.addEventListener('click', () => {
-            drawerMenu.classList.toggle('open');
-            overlay.classList.toggle('open');
-        });
-
-        overlay.addEventListener('click', () => {
-            drawerMenu.classList.remove('open');
-            overlay.classList.remove('open');
-        });
+const menuToggle = document.querySelector('.menu-toggle');
+    const drawerMenu = document.querySelector('.drawer-menu');
+    const overlay = document.querySelector('.overlay');
+    menuToggle.addEventListener('click', () => {
+        drawerMenu.classList.toggle('open');
+        overlay.classList.toggle('open');
     });
+    overlay.addEventListener('click', () => {
+        drawerMenu.classList.remove('open');
+        overlay.classList.remove('open');
+    });
+});
 </script>
 {% if ad_settings.popunder_code %}{{ ad_settings.popunder_code|safe }}{% endif %}
 {% if ad_settings.social_bar_code %}{{ ad_settings.social_bar_code|safe }}{% endif %}
