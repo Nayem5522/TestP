@@ -586,7 +586,7 @@ detail_html = """
                     <h3 class="section-title" style="margin-top:0;">Streaming Links</h3>
                     {% for link_item in movie.streaming_links %}
                         <a class="download-button" href="{{ link_item.url }}" target="_blank" rel="noopener" style="background-color: #007bff;">
-                            <i class="fas fa-play-circle"></i> Stream and Watch online in {{ link_item.quality }}
+                            <i class="fas fa-play-circle"></i> Stream and Watch online in {{ link_item.name }}
                         </a>
                     {% endfor %}
                 </div>
@@ -819,9 +819,9 @@ admin_html = """
                 
                 <!-- [REVERTED] Streaming Links -->
                 <p><b>Streaming Links (Optional)</b></p>
-                <div class="form-group"><label>Streaming Link 1 (Server 1):</label><input type="url" name="streaming_link_1" /></div>
-                <div class="form-group"><label>Streaming Link 2 (Server 2):</label><input type="url" name="streaming_link_2" /></div>
-                <div class="form-group"><label>Streaming Link 3 (Server 3):</label><input type="url" name="streaming_link_3" /></div><hr>
+                <div class="form-group"><label>Streaming Link 1 (Server 11):</label><input type="url" name="streaming_link_1" /></div>
+                <div class="form-group"><label>Streaming Link 2 (Server 12):</label><input type="url" name="streaming_link_2" /></div>
+                <div class="form-group"><label>Streaming Link 3 (Server 13):</label><input type="url" name="streaming_link_3" /></div><hr>
 
                 <p><b>Direct Download Links</b></p>
                 <div class="form-group"><label>480p Link:</label><input type="url" name="link_480p" /></div>
@@ -1012,13 +1012,13 @@ edit_html = """
             <div class="form-group"><label>Watch Link (Main Embed):</label><input type="url" name="watch_link" value="{{ movie.watch_link or '' }}" /></div><hr>
             
             <!-- [REVERTED] Streaming Links -->
-            {% set stream_link_1 = (movie.streaming_links | selectattr('name', 'equalto', 'Server 1') | map(attribute='url') | first) or '' %}
-            {% set stream_link_2 = (movie.streaming_links | selectattr('name', 'equalto', 'Server 2') | map(attribute='url') | first) or '' %}
-            {% set stream_link_3 = (movie.streaming_links | selectattr('name', 'equalto', 'Server 3') | map(attribute='url') | first) or '' %}
+            {% set stream_link_1 = (movie.streaming_links | selectattr('name', 'equalto', 'Server 21') | map(attribute='url') | first) or '' %}
+            {% set stream_link_2 = (movie.streaming_links | selectattr('name', 'equalto', 'Server 22') | map(attribute='url') | first) or '' %}
+            {% set stream_link_3 = (movie.streaming_links | selectattr('name', 'equalto', 'Server 23') | map(attribute='url') | first) or '' %}
             <p><b>Streaming Links (Optional)</b></p>
-            <div class="form-group"><label>Streaming Link 1 (Server 1):</label><input type="url" name="streaming_link_1" value="{{ stream_link_1 }}" /></div>
-            <div class="form-group"><label>Streaming Link 2 (Server 2):</label><input type="url" name="streaming_link_2" value="{{ stream_link_2 }}" /></div>
-            <div class="form-group"><label>Streaming Link 3 (Server 3):</label><input type="url" name="streaming_link_3" value="{{ stream_link_3 }}" /></div><hr>
+            <div class="form-group"><label>Streaming Link 1 (Server 31):</label><input type="url" name="streaming_link_1" value="{{ stream_link_1 }}" /></div>
+            <div class="form-group"><label>Streaming Link 2 (Server 32):</label><input type="url" name="streaming_link_2" value="{{ stream_link_2 }}" /></div>
+            <div class="form-group"><label>Streaming Link 3 (Server 33):</label><input type="url" name="streaming_link_3" value="{{ stream_link_3 }}" /></div><hr>
             
             <p><b>Download Links (Manual)</b></p>
             <div class="form-group"><label>480p Link:</label><input type="url" name="link_480p" value="{% for l in movie.links %}{% if l.quality == '480p' %}{{ l.url }}{% endif %}{% endfor %}" /></div>
@@ -1464,9 +1464,9 @@ def admin():
 
             # [REVERTED] Handle Fixed Streaming Links
             streaming_links = [
-                ("Server 1", request.form.get("streaming_link_1", "").strip()),
-                ("Server 2", request.form.get("streaming_link_2", "").strip()),
-                ("Server 3", request.form.get("streaming_link_3", "").strip()),
+                ("Server 41", request.form.get("streaming_link_1", "").strip()),
+                ("Server 42", request.form.get("streaming_link_2", "").strip()),
+                ("Server 43", request.form.get("streaming_link_3", "").strip()),
             ]
             movie_data['streaming_links'] = [{"name": name, "url": url} for name, url in streaming_links if url]
 
@@ -1584,9 +1584,9 @@ def edit_movie(movie_id):
             
             # [REVERTED] Handle Fixed Streaming Links
             streaming_links_data = [
-                ("Server 1", request.form.get("streaming_link_1", "").strip()),
-                ("Server 2", request.form.get("streaming_link_2", "").strip()),
-                ("Server 3", request.form.get("streaming_link_3", "").strip()),
+                ("Server 51", request.form.get("streaming_link_1", "").strip()),
+                ("Server 52", request.form.get("streaming_link_2", "").strip()),
+                ("Server 53", request.form.get("streaming_link_3", "").strip()),
             ]
             update_data["streaming_links"] = [{"name": name, "url": url} for name, url in streaming_links_data if url]
 
