@@ -306,7 +306,7 @@ index_html = """
     <div class="nav-left">
         <div class="menu-toggle"><i class="fas fa-bars"></i></div>
     </div>
-    <a href="{{ url_for('home') }}" class="logo">PmwBD.com</a>
+    <a href="{{ url_for('home') }}" class="logo">PmwBD</a>
     <div class="nav-right">
         <div class="search-container">
             <form method="GET" action="/" class="search-form">
@@ -586,7 +586,7 @@ detail_html = """
                     <h3 class="section-title" style="margin-top:0;">Streaming Links</h3>
                     {% for link_item in movie.streaming_links %}
                         <a class="download-button" href="{{ link_item.url }}" target="_blank" rel="noopener" style="background-color: #007bff;">
-                            <i class="fas fa-play-circle"></i> Stream and Watch online in {{ link_item.name }}
+                            <i class="fas fa-play-circle"></i> Stream and Watch online in {{ link_item.quality }}
                         </a>
                     {% endfor %}
                 </div>
