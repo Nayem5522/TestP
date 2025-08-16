@@ -214,7 +214,7 @@ index_html = """
   .main-nav.scrolled { background-color: var(--netflix-black); }
   .nav-left, .nav-right { display: flex; align-items: center; flex: 1; }
   .nav-right { justify-content: flex-end; }
-  .logo { font-family: 'Bebas Neue', sans-serif; font-size: 40px; color: var(--netflix-red); font-weight: 700; letter-spacing: 1px; margin: 0 auto; } /* [MODIFIED] Logo size increased */
+  .logo { font-family: 'Bebas Neue', sans-serif; font-size: 40px; color: var(--netflix-red); font-weight: 700; letter-spacing: 1px; margin: 0 auto; }
   .menu-toggle { font-size: 24px; cursor: pointer; color: var(--text-light); z-index: 1002;}
   
   .drawer-menu { position: fixed; top: 0; left: -280px; width: 280px; height: 100%; background-color: #181818; z-index: 1001; transition: left 0.3s ease; padding-top: 80px; }
@@ -228,23 +228,25 @@ index_html = """
   .nav-links a { font-weight: 500; font-size: 0.9rem; transition: color 0.2s ease; }
   .nav-links a:hover { color: var(--netflix-red); }
   .search-container { }
-  .search-input { background-color: rgba(0,0,0,0.7); border: 1px solid #777; color: var(--text-light); padding: 8px 15px; border-radius: 4px; transition: width 0.3s ease, background-color 0.3s ease; width: 200px; } /* [MODIFIED] Search bar width decreased */
+  .search-input { background-color: rgba(0,0,0,0.7); border: 1px solid #777; color: var(--text-light); padding: 8px 15px; border-radius: 4px; transition: width 0.3s ease, background-color 0.3s ease; width: 200px; }
   .search-input:focus { background-color: rgba(0,0,0,0.9); border-color: var(--text-light); outline: none; }
   
-  .hero-section { height: 55vh; position: relative; color: white; overflow: hidden; margin-top: var(--nav-height); } /* [MODIFIED] Hero section height reduced */
-  .hero-slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center top; display: flex; align-items: flex-end; padding: 50px; opacity: 0; transition: opacity 1.5s ease-in-out; z-index: 1; }
+  /* [MODIFIED] Hero section height reduced to make it smaller */
+  .hero-section { height: 40vh; position: relative; color: white; overflow: hidden; margin-top: var(--nav-height); } 
+  .hero-slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center top; display: flex; align-items: flex-end; padding: 40px; opacity: 0; transition: opacity 1.5s ease-in-out; z-index: 1; }
   .hero-slide.active { opacity: 1; z-index: 2; }
   .hero-slide::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to top, var(--netflix-black) 10%, transparent 50%), linear-gradient(to right, rgba(0,0,0,0.8) 0%, transparent 60%); }
   .hero-content { position: relative; z-index: 3; max-width: 50%; }
-  .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: 5rem; font-weight: 700; margin-bottom: 1rem; line-height: 1; }
-  .hero-overview { font-size: 1.1rem; line-height: 1.5; margin-bottom: 1.5rem; max-width: 600px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  /* [MODIFIED] Hero title font size reduced to fit the smaller section */
+  .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: 4rem; font-weight: 700; margin-bottom: 1rem; line-height: 1; }
+  .hero-overview { font-size: 1rem; line-height: 1.5; margin-bottom: 1.5rem; max-width: 600px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
   .hero-buttons .btn { padding: 8px 20px; margin-right: 0.8rem; border: none; border-radius: 4px; font-size: 0.9rem; font-weight: 700; cursor: pointer; transition: opacity 0.3s ease; display: inline-flex; align-items: center; gap: 8px; }
   .btn.btn-primary { background-color: var(--netflix-red); color: white; } .btn.btn-secondary { background-color: rgba(109, 109, 110, 0.7); color: white; } .btn:hover { opacity: 0.8; }
   main { padding: 0 50px; }
 
   .category-buttons { padding: 20px 0; display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; }
-  .cat-btn { padding: 10px 25px; background-color: green; border: none; color: white; border-radius: 20px; font-size: 1rem; font-weight: 500; transition: all 0.2s ease; } /* [MODIFIED] Category button style */
-  .cat-btn:hover { background-color: var(--netflix-red); transform: translateY(-2px); } /* [MODIFIED] Category button hover */
+  .cat-btn { padding: 10px 25px; background-color: green; border: none; color: white; border-radius: 20px; font-size: 1rem; font-weight: 500; transition: all 0.2s ease; }
+  .cat-btn:hover { background-color: var(--netflix-red); transform: translateY(-2px); }
 
   .movie-card { display: block; cursor: pointer; transition: transform 0.3s ease; }
   .poster-wrapper { position: relative; width: 100%; border-radius: 6px; overflow: hidden; background-color: #222; display: flex; flex-direction: column; }
@@ -278,11 +280,15 @@ index_html = """
   
   @media (max-width: 992px) { .nav-links { display: none; } }
   @media (max-width: 768px) {
-      body { padding-bottom: var(--nav-height); } .main-nav { padding: 10px 15px; } main { padding: 0 15px; } .logo { font-size: 28px; } /* [MODIFIED] Logo size for mobile */
+      body { padding-bottom: var(--nav-height); } .main-nav { padding: 10px 15px; } main { padding: 0 15px; } .logo { font-size: 28px; }
       .search-container { flex: 2; text-align: right; }
-      .search-input { width: 120px; } /* [MODIFIED] Search bar width for mobile */
-      .hero-section { height: 45vh; margin: 0 -15px;} /* [MODIFIED] Hero height for mobile */
-      .hero-slide { padding: 15px; align-items: center; } .hero-content { max-width: 90%; text-align: center; } .hero-title { font-size: 2.8rem; } .hero-overview { display: none; }
+      .search-input { width: 120px; }
+      /* [MODIFIED] Hero height for mobile reduced */
+      .hero-section { height: 35vh; margin: 0 -15px;} 
+      .hero-slide { padding: 15px; align-items: center; } .hero-content { max-width: 90%; text-align: center; } 
+      /* [MODIFIED] Hero title for mobile reduced */
+      .hero-title { font-size: 2.5rem; } 
+      .hero-overview { display: none; }
       .category-section { margin: 25px 0; } .category-title { font-size: 1.2rem; }
       .category-grid, .full-page-grid { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 15px 10px; }
       .full-page-grid-container { padding-top: 80px; } .full-page-grid-title { font-size: 1.8rem; }
