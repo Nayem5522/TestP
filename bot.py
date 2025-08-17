@@ -237,7 +237,7 @@ index_html = """
 .hero-slide::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to top, var(--netflix-black) 10%, transparent 60%); }
 .hero-content { position: relative; z-index: 3; max-width: 60%; text-align: left; }
 /* [MODIFIED] Hero title font style adjusted for a normal look */
-.hero-title { font-family: 'Roboto', sans-serif; font-size: 2.5rem; text-transform: uppercase; font-weight: 700; margin-bottom: 1rem; line-height: 1.2; text-shadow: 2px 2px 5px rgba(0,0,0,0.7); }
+.hero-title { font-family: 'Roboto', sans-serif; font-size: 2.7rem; text-transform: uppercase; font-weight: 700; margin-bottom: 1rem; line-height: 1.2; text-shadow: 2px 2px 5px rgba(0,0,0,0.7); }
 .hero-overview { font-size: 1rem; line-height: 1.5; margin-bottom: 1.5rem; max-width: 600px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .hero-buttons .btn { padding: 8px 20px; margin-right: 0.8rem; border: none; border-radius: 4px; font-size: 0.9rem; font-weight: 700; cursor: pointer; transition: opacity 0.3s ease; display: inline-flex; align-items: center; gap: 8px; }
 .btn.btn-primary { background-color: var(--netflix-red); color: white; } .btn.btn-secondary { background-color: rgba(109, 109, 110, 0.7); color: white; } .btn:hover { opacity: 0.8; }
@@ -285,7 +285,7 @@ body { padding-bottom: var(--nav-height); } .main-nav { padding: 10px 15px; } ma
 .hero-section { height: 45vh; margin: 0 -15px;}
 .hero-slide { padding: 25px; }
 .hero-content { max-width: 90%; text-align: left; }
-.hero-title { font-size: 2rem; }
+.hero-title { font-size: 1.7rem; }
 .hero-overview { display: none; }
 .category-section { margin: 25px 0; } .category-title { font-size: 1.2rem; }
 .category-grid, .full-page-grid { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 15px 10px; }
@@ -305,7 +305,7 @@ body { padding-bottom: var(--nav-height); } .main-nav { padding: 10px 15px; } ma
         <div class="menu-toggle"><i class="fas fa-bars"></i></div>
         <a href="{{ url_for('home') }}" class="logo">
             <!-- [MODIFIED] Logo size increased -->
-            <img src="https://i.postimg.cc/bwMx2P6J/IMG-20250817-043812-084-removebg-preview.png" alt="PmwBD Logo" style="height: 40px;">
+            <img src="https://i.postimg.cc/bwMx2P6J/IMG-20250817-043812-084-removebg-preview.png" alt="PmwBD Logo" style="height: 50px;">
         </a>
     </div>
     <div class="nav-right">
