@@ -212,9 +212,9 @@ index_html = """
 
 .main-nav { position: fixed; top: 0; left: 0; width: 100%; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; transition: background-color 0.3s ease; background: linear-gradient(to bottom, rgba(0,0,0,0.8) 10%, rgba(0,0,0,0)); }
 .main-nav.scrolled { background-color: var(--netflix-black); }
-.nav-left, .nav-right { display: flex; align-items: center; flex: 1; }
-.nav-right { justify-content: flex-end; }
-.logo { font-family: 'Bebas Neue', sans-serif; font-size: 40px; color: var(--netflix-red); font-weight: 700; letter-spacing: 1px; margin: 0 auto; line-height: 0; }
+/* [MODIFIED] Removed flex:1 to align logo left */
+.nav-left, .nav-right { display: flex; align-items: center; }
+.logo { margin-left: 15px; line-height: 0; }
 .menu-toggle { font-size: 24px; cursor: pointer; color: var(--text-light); z-index: 1002;}
 
 .drawer-menu { position: fixed; top: 0; left: -280px; width: 280px; height: 100%; background-color: #181818; z-index: 1001; transition: left 0.3s ease; padding-top: 80px; }
@@ -236,7 +236,8 @@ index_html = """
 .hero-slide.active { opacity: 1; z-index: 2; }
 .hero-slide::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to top, var(--netflix-black) 10%, transparent 60%); }
 .hero-content { position: relative; z-index: 3; max-width: 60%; text-align: left; }
-.hero-title { font-family: 'Bebas Neue', sans-serif; font-size: 2.8rem; font-weight: 700; margin-bottom: 1rem; line-height: 1.1; text-shadow: 2px 2px 5px rgba(0,0,0,0.7); }
+/* [MODIFIED] Hero title font style adjusted for a normal look */
+.hero-title { font-family: 'Roboto', sans-serif; font-size: 2.5rem; text-transform: uppercase; font-weight: 700; margin-bottom: 1rem; line-height: 1.2; text-shadow: 2px 2px 5px rgba(0,0,0,0.7); }
 .hero-overview { font-size: 1rem; line-height: 1.5; margin-bottom: 1.5rem; max-width: 600px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .hero-buttons .btn { padding: 8px 20px; margin-right: 0.8rem; border: none; border-radius: 4px; font-size: 0.9rem; font-weight: 700; cursor: pointer; transition: opacity 0.3s ease; display: inline-flex; align-items: center; gap: 8px; }
 .btn.btn-primary { background-color: var(--netflix-red); color: white; } .btn.btn-secondary { background-color: rgba(109, 109, 110, 0.7); color: white; } .btn:hover { opacity: 0.8; }
@@ -278,13 +279,13 @@ main { padding: 0 50px; }
 
 @media (max-width: 992px) { .nav-links { display: none; } }
 @media (max-width: 768px) {
-body { padding-bottom: var(--nav-height); } .main-nav { padding: 10px 15px; } main { padding: 0 15px; } .logo img { height: 28px !important; }
+body { padding-bottom: var(--nav-height); } .main-nav { padding: 10px 15px; } main { padding: 0 15px; } .logo img { height: 32px !important; }
 .search-container { flex: 2; text-align: right; }
 .search-input { width: 120px; }
 .hero-section { height: 45vh; margin: 0 -15px;}
 .hero-slide { padding: 25px; }
 .hero-content { max-width: 90%; text-align: left; }
-.hero-title { font-size: 2.2rem; }
+.hero-title { font-size: 2rem; }
 .hero-overview { display: none; }
 .category-section { margin: 25px 0; } .category-title { font-size: 1.2rem; }
 .category-grid, .full-page-grid { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 15px 10px; }
@@ -299,13 +300,14 @@ body { padding-bottom: var(--nav-height); } .main-nav { padding: 10px 15px; } ma
 </head>
 <body>
 <header class="main-nav">
+    <!-- [MODIFIED] Logo moved to the left div -->
     <div class="nav-left">
         <div class="menu-toggle"><i class="fas fa-bars"></i></div>
+        <a href="{{ url_for('home') }}" class="logo">
+            <!-- [MODIFIED] Logo size increased -->
+            <img src="https://i.postimg.cc/bwMx2P6J/IMG-20250817-043812-084-removebg-preview.png" alt="PmwBD Logo" style="height: 40px;">
+        </a>
     </div>
-    <!-- The logo link is updated below -->
-    <a href="{{ url_for('home') }}" class="logo">
-        <img src="https://i.postimg.cc/bwMx2P6J/IMG-20250817-043812-084-removebg-preview.png" alt="PmwBD Logo" style="height: 35px;">
-    </a>
     <div class="nav-right">
         <div class="search-container">
             <form method="GET" action="/" class="search-form">
@@ -358,7 +360,10 @@ body { padding-bottom: var(--nav-height); } .main-nav { padding: 10px 15px; } ma
 {% endif %}
 </div>
 {% else %}
-{% if recently_added %}<div class="hero-section">{% for movie in recently_added %}<div class="hero-slide {% if loop.first %}active{% endif %}" style="background-image: url('{{ movie.poster or '' }}');"><div class="hero-content"><h1 class="hero-title">{{ movie.title }}</h1><p class="hero-overview">{{ movie.overview }}</p><div class="hero-buttons">{% if movie.watch_link and not movie.is_coming_soon %}<a href="{{ url_for('watch_movie', movie_id=movie._id) }}" class="btn btn-primary"><i class="fas fa-play"></i> Watch Now</a>{% endif %}<a href="{{ url_for('movie_detail', movie_id=movie._id) }}" class="btn btn-secondary"><i class="fas fa-info-circle"></i> More Info</a></div></div></div>{% endfor %}</div>{% endif %}
+{% if recently_added %}<div class="hero-section">{% for movie in recently_added %}<div class="hero-slide {% if loop.first %}active{% endif %}" style="background-image: url('{{ movie.poster or '' }}');"><div class="hero-content">
+<!-- [MODIFIED] Title is now truncated to the first 5 words -->
+<h1 class="hero-title">{{ ' '.join(movie.title.split(' ')[:5]) }}</h1>
+<p class="hero-overview">{{ movie.overview }}</p><div class="hero-buttons">{% if movie.watch_link and not movie.is_coming_soon %}<a href="{{ url_for('watch_movie', movie_id=movie._id) }}" class="btn btn-primary"><i class="fas fa-play"></i> Watch Now</a>{% endif %}<a href="{{ url_for('movie_detail', movie_id=movie._id) }}" class="btn btn-secondary"><i class="fas fa-info-circle"></i> More Info</a></div></div></div>{% endfor %}</div>{% endif %}
 
 <div class="category-buttons">
     <a href="{{ url_for('movies_by_category', cat_name='Hindi') }}" class="cat-btn">Hindi</a>
@@ -452,6 +457,7 @@ const menuToggle = document.querySelector('.menu-toggle');
 </body>
 </html>
 """
+
 detail_html = """
 <!DOCTYPE html>
 <html lang="en">
