@@ -943,7 +943,7 @@ admin_html = """
         findButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Finding...';
 
         try {
-            const response = await fetch(\`/admin/api/fetch_tmdb?url=\${encodeURIComponent(url)}\`);
+            const response = await fetch(`/admin/api/fetch_tmdb?url=${encodeURIComponent(url)}`);
             if (!response.ok) {
                 const errorData = await response.json();
                 throw new Error(errorData.error || 'Failed to fetch data. Check the URL and try again.');
